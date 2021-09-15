@@ -17,13 +17,11 @@ public class SearchTests extends BaseTest {
     }
 
     @Test(priority = 2)
-    public void checkNumberOfElementsOnPage() {
+    public void checkNumberOfElementsOnPage() throws InterruptedException {
         getHomePage().searchByKeyword(SEARCH_KEYWORD);
-        getHomePage().implicitWait(20);
         getSearchResultPage().setFilterByVacuumCleaner();
-        getHomePage().implicitWait(20);
         getSearchResultPage().clickOnMoreButton();
-        getHomePage().implicitWait(20);
+        Thread.sleep(5000);
         assertEquals(getSearchResultPage().getSearchResultListCount(),EXPECTED_NUMBER_OF_GOODS);
     }
 

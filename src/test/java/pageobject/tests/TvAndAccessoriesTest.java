@@ -14,11 +14,8 @@ public class TvAndAccessoriesTest extends BaseTest {
     @Test
     public void checkFilterByAmount() {
         getHomePage().clickOnProductCatalogButton();
-        getHomePage().implicitWait(5);
         getTvAndAccessoriesPage().clickOnTvAndAccessoriesButton();
-        getHomePage().implicitWait(5);
         getTvAndAccessoriesPage().clickOnTvButton();
-        getHomePage().implicitWait(5);
         getTvAndAccessoriesPage().setMinAmountInFilter(MIN_AMOUNT_FOR_FILTERING);
         getTvAndAccessoriesPage().setMaxAmountInFilter(MAX_AMOUNT_FOR_FILTERING);
         getTvAndAccessoriesPage().showFilteredProducts();

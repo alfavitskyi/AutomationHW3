@@ -1,6 +1,10 @@
 package pageobject.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.By.xpath;
 
@@ -14,32 +18,53 @@ public class HomePage extends BasePage {
     private static final String KEEP_PURCHASING_FROM_CART = "//div[@class='btns-cart-holder']//a[contains(@class,'btn--orange')]";
     private static final String OPEN_CART = "//div[@class='header-bottom__cart active-cart flex-wrap middle-xs js-btn-open']//div[contains(@class,'active-cart-item js_cart_count')]";
     private static final String PLUS_ONE_PRODUCT_IN_CART = "//span[@class='js_plus btn-count btn-count--plus ']";
-
+    private static final int TIME_OUT = 10;
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
 
-    public void searchByKeyword (final String keyword){
+    public void searchByKeyword(final String keyword) {
         driver.findElement(xpath(SEARCH_INPUT)).sendKeys(keyword);
-        driver.findElement(xpath(SEARCH_BUTTON)).click();
+        clickByElement(xpath(SEARCH_BUTTON));
     }
 
-    public void clickOnProductCatalogButton (){
-        driver.findElement(xpath(PRODUCT_CATALOG_BUTTON)).click();
+    public void clickOnProductCatalogButton() {
+        clickByElement(xpath(PRODUCT_CATALOG_BUTTON));
     }
 
-    public void clickOnGadgetStoreButton (){
-        driver.findElement(xpath(GADGET_STORE_BUTTON)).click();
+    public void clickOnGadgetStoreButton() {
+        clickByElement(xpath(GADGET_STORE_BUTTON));
     }
 
-    public String getAmountOfProductsInCart (){return driver.findElement(xpath(PRODUCTS_IN_CART)).getText();}
+    public String getAmountOfProductsInCart() {
+        return getTextFromElement(xpath(PRODUCTS_IN_CART));
+    }
 
-    public void clickOnKeepPurchasing (){driver.findElement(xpath(KEEP_PURCHASING_FROM_CART)).click();}
+    public void clickOnKeepPurchasing() {
+        clickByElement(xpath(KEEP_PURCHASING_FROM_CART));
+    }
 
-    public void clickOnCartButton (){driver.findElement(xpath(OPEN_CART)).click();}
+    public void clickOnCartButton() {
+        clickByElement(xpath(OPEN_CART));
+    }
 
-    public void addOneMoreProductInCart (){driver.findElement(xpath(PLUS_ONE_PRODUCT_IN_CART)).click();}
+    public void addOneMoreProductInCart() {
+        clickByElement(xpath(PLUS_ONE_PRODUCT_IN_CART));
+    }
 
-    public String getNumberOfGoodsInCart(){return driver.findElement(xpath(PRODUCTS_IN_CART)).getText();}
+    public String getNumberOfGoodsInCart() {
+        return getTextFromElement(xpath(PRODUCTS_IN_CART));
+    }
+
+    public String getTextFromElement(By locator) {
+        return new WebDriverWait(driver, TIME_OUT)
+                .until(ExpectedConditions.presenceOfElementLocated(locator)).getText();
+    }
+
+    public void clickByElement(By locator) {
+        new WebDriverWait(driver, TIME_OUT)
+                .until(ExpectedConditions.presenceOfElementLocated(locator)).click();
+    }
+
 }
